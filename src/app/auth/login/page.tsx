@@ -1,6 +1,8 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -16,6 +18,8 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import api, { ApiError, ApiReturn } from '@/lib/api';
+import { setToken } from '@/lib/cookies';
 
 const LoginSchema = z.object({
   email: z
@@ -30,8 +34,21 @@ export default function LoginPage() {
     resolver: zodResolver(LoginSchema),
   });
 
+  const { mutate: handleLogin } = useMutation<
+    AxiosResponse<ApiReturn<z.infer<typeof LoginSchema>>> | void,
+    AxiosError<ApiError>,
+    z.infer<typeof LoginSchema>
+  >({
+    mutationFn: async (data) => {
+      const res = await api.post('/user/login', data);
+
+      const { token } = res.data.data;
+      setToken(token);
+    },
+  });
+
   const onSubmit = (data: z.infer<typeof LoginSchema>) => {
-    console.log(data);
+    handleLogin(data);
   };
 
   return (

@@ -1,6 +1,9 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
+import { ApiError } from 'next/dist/server/api-utils';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
@@ -16,13 +19,13 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import api, { ApiReturn } from '@/lib/api';
 
 const SignUpSchema = z.object({
   email: z
     .string()
     .min(1, { message: 'Email is required!' })
     .email('Must be a valid email!'),
-  username: z.string().min(1, { message: 'Username is required!' }),
   password: z
     .string()
     .min(1, { message: 'Password is required!' })
@@ -34,8 +37,14 @@ export default function LoginPage() {
     resolver: zodResolver(SignUpSchema),
   });
 
+  const { mutate: handleSignUp } = useMutation<
+    AxiosResponse<ApiReturn<z.infer<typeof SignUpSchema>>> | void,
+    AxiosError<ApiError>,
+    z.infer<typeof SignUpSchema>
+  >(async (data) => await api.post('/user', data));
+
   const onSubmit = (data: z.infer<typeof SignUpSchema>) => {
-    console.log(data);
+    handleSignUp(data);
   };
 
   return (
@@ -67,20 +76,6 @@ export default function LoginPage() {
                         placeholder='cute_mammal@example.com'
                         {...field}
                       />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name='username'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input type='text' placeholder='cute_mammal' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
