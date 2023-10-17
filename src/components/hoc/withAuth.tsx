@@ -63,13 +63,13 @@ export default function withAuth<T>(
 
       if (user && isAuthenticated) {
         if (!routePermission.includes(user.peran)) {
-          router.replace('/');
+          router.replace('/login');
           window.sessionStorage.setItem('redirectIsDone', 'true');
           return;
         }
       } else {
         if (!isLoading) {
-          router.replace('/');
+          router.replace('/login');
           window.sessionStorage.setItem('redirectIsDone', 'true');
         }
       }
