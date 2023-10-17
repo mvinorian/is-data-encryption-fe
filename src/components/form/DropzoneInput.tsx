@@ -25,6 +25,7 @@ export type DropzoneInputProps = {
   acceptTypes?: string;
   maxFiles?: number;
   className?: string;
+  maxSize?: number;
 };
 
 export default function DropzoneInput({
@@ -36,6 +37,7 @@ export default function DropzoneInput({
   accept = { 'image/*': ['.jpg', '.jpeg', '.png'] },
   acceptTypes = 'JPG, JPEG, atau PNG',
   maxFiles = 1,
+  maxSize = 1000000,
   className,
 }: DropzoneInputProps) {
   const {
@@ -127,14 +129,14 @@ export default function DropzoneInput({
     onDrop,
     accept,
     maxFiles,
-    maxSize: 1000000,
+    maxSize,
   });
 
   return (
     <div className='w-full space-y-1.5'>
       {label && (
         <label htmlFor={id} className='flex space-x-1'>
-          <Typography className='font-semibold text-base-primary'>
+          <Typography className='font-semibold text-teal-600'>
             {label}
           </Typography>
           {validation?.required && (
