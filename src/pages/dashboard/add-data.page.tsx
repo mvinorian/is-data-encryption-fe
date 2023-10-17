@@ -52,7 +52,8 @@ function AddDataPage() {
           Add new data to your account
         </Typography>
         <Typography as='p' variant='p' className='text-base-icon'>
-          Your data are stored with encryption. Click continue when you’re done!
+          Your data are stored with encryption. Click continue when you&apos;re
+          done!
         </Typography>
       </div>
 
