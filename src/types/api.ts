@@ -16,6 +16,11 @@ export type ApiError = {
   status: string;
 };
 
+export type DefaultMeta = {
+  page: number;
+  max_page: number;
+};
+
 type PaginateData<T> = {
   data_per_page?: T;
   meta: {
