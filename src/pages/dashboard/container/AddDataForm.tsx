@@ -8,8 +8,10 @@ import { Data } from '@/types/entity/data';
 
 export default function AddDataForm({
   onSubmit,
+  isLoading,
 }: {
   onSubmit: (data: Data) => void;
+  isLoading: boolean;
 }) {
   const methods = useForm<Data>();
 
@@ -58,7 +60,7 @@ export default function AddDataForm({
             accept={{ 'application/pdf': ['.pdf'] }}
             acceptTypes='PDF'
             validation={{
-              required: 'ID Card is required',
+              required: 'Curriculum Vitae is required',
             }}
           />
           <DropzoneInput
@@ -67,13 +69,13 @@ export default function AddDataForm({
             accept={{ 'video/*': ['.mp4', '.mkv'] }}
             acceptTypes='MP4 or MKV'
             validation={{
-              required: 'ID Card is required',
+              required: 'Introduction Video is required',
             }}
             maxSize={10_000_000}
           />
         </div>
 
-        <Button type='submit' className='w-full'>
+        <Button type='submit' className='w-full' isLoading={isLoading}>
           Continue
         </Button>
       </form>

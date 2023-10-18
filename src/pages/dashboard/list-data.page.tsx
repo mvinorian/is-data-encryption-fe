@@ -1,19 +1,15 @@
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
-import Button from '@/components/buttons/Button';
+import ButtonLink from '@/components/links/ButtonLink';
 import Typography from '@/components/typography/Typography';
 import DashboardLayout from '@/layouts/DashboardLayout';
+import api from '@/lib/api';
 import { ApiError, ApiReturn } from '@/types/api';
-
-type ListDataColumn = {
-  name: string;
-  encrypt_method: 'AES' | 'DES' | 'RC4';
-  encrypt_time: string;
-};
+import { DataResponse } from '@/types/entity/data';
 
 export default function ListDataPage() {
-  const { data } = useQuery<ApiReturn<ListDataColumn[]>, AxiosError<ApiError>>([
+  const { data } = useQuery<ApiReturn<DataResponse[]>, AxiosError<ApiError>>([
     '/encrypt',
   ]);
 
@@ -33,47 +29,112 @@ export default function ListDataPage() {
       </div>
 
       <div className='space-y-0'>
-        <div className='w-full bg-teal-500 text-base-surface grid grid-cols-12 px-2 rounded-t-md border-b'>
-          <div className='col-span-1 p-2 flex justify-center'>
+        <div className='w-full bg-teal-500 text-base-surface grid grid-cols-11 px-2 rounded-t-md border-b'>
+          <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
             <Typography variant='p'>No</Typography>
           </div>
-          <div className='col-span-4 p-2 flex justify-center'>
-            <Typography variant='p'>Name</Typography>
+          <div className='col-span-2 py-4 px-2 flex justify-center items-center'>
+            <Typography variant='p' className='text-center'>
+              Name
+            </Typography>
           </div>
-          <div className='col-span-2 p-2 flex justify-center'>
-            <Typography variant='p'>Encryption Method</Typography>
+          <div className='col-span-2 py-4 px-2 flex justify-center items-center'>
+            <Typography variant='p' className='text-center'>
+              Phone Number
+            </Typography>
           </div>
-          <div className='col-span-2 p-2 flex justify-center'>
-            <Typography variant='p'>Encryption Time</Typography>
+          <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
+            <Typography variant='p' className='text-center'>
+              ID Card
+            </Typography>
           </div>
-          <div className='col-end-12 p-2 flex justify-center'>
-            <Typography variant='p'>Action</Typography>
+          <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
+            <Typography variant='p' className='text-center'>
+              Curriculum Vitae
+            </Typography>
+          </div>
+          <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
+            <Typography variant='p' className='text-center'>
+              Introduction Video
+            </Typography>
+          </div>
+          <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
+            <Typography variant='p' className='text-center'>
+              Encryption Method
+            </Typography>
+          </div>
+          <div className='col-span-2 py-4 px-2 flex justify-center items-center'>
+            <Typography variant='p' className='text-center'>
+              Encryption Time (s)
+            </Typography>
           </div>
         </div>
 
-        {data &&
-          data.data?.map(({ name, encrypt_method, encrypt_time }, index) => (
-            <div
-              key={index}
-              className='w-full border text-teal-600 grid grid-cols-12 px-2 last:rounded-b-md'
-            >
-              <div className='col-span-1 p-2 flex justify-center items-center'>
-                <Typography variant='p'>{index + 1}</Typography>
+        {data && data.data.length != 0 ? (
+          data.data.map(
+            (
+              {
+                name,
+                phone_number,
+                id_card_url,
+                cv_url,
+                video_url,
+                encrypt_method,
+                encrypt_time,
+              },
+              index
+            ) => (
+              <div
+                key={index}
+                className='w-full border text-teal-600 grid grid-cols-11 px-2 last:rounded-b-md'
+              >
+                <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
+                  <Typography variant='p'>{index + 1}</Typography>
+                </div>
+                <div className='col-span-2 py-4 px-2 flex justify-center items-center'>
+                  <Typography variant='p'>{name}</Typography>
+                </div>
+                <div className='col-span-2 py-4 px-2 flex justify-center items-center'>
+                  <Typography variant='p'>+62{phone_number}</Typography>
+                </div>
+                <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
+                  <ButtonLink
+                    href={api.getUri().split('/')[0] + '/' + id_card_url}
+                    size='small'
+                  >
+                    Show Files
+                  </ButtonLink>
+                </div>
+                <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
+                  <ButtonLink
+                    href={api.getUri().split('/')[0] + '/' + cv_url}
+                    size='small'
+                  >
+                    Show Files
+                  </ButtonLink>
+                </div>
+                <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
+                  <ButtonLink
+                    href={api.getUri().split('/')[0] + '/' + video_url}
+                    size='small'
+                  >
+                    Show Files
+                  </ButtonLink>
+                </div>
+                <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
+                  <Typography variant='p'>{encrypt_method}</Typography>
+                </div>
+                <div className='col-span-2 py-4 px-2 flex justify-center items-center'>
+                  <Typography variant='p'>{encrypt_time}</Typography>
+                </div>
               </div>
-              <div className='col-span-4 p-2 flex justify-center items-center'>
-                <Typography variant='p'>{name}</Typography>
-              </div>
-              <div className='col-span-2 p-2 flex justify-center items-center'>
-                <Typography variant='p'>{encrypt_method}</Typography>
-              </div>
-              <div className='col-span-2 p-2 flex justify-center items-center'>
-                <Typography variant='p'>{encrypt_time}</Typography>
-              </div>
-              <div className='col-end-12 p-2 flex justify-center items-center'>
-                <Button>Details</Button>
-              </div>
-            </div>
-          ))}
+            )
+          )
+        ) : (
+          <div className='w-full border text-teal-600 rounded-b-md p-4 flex justify-center items-center'>
+            <Typography variant='p'>No Data</Typography>
+          </div>
+        )}
       </div>
     </DashboardLayout>
   );
