@@ -102,7 +102,9 @@ function ListDataPage() {
                 </div>
                 <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
                   <ButtonLink
-                    href={api.getUri().split('/')[0] + '/' + id_card_url}
+                    href={
+                      api.getUri() + '/encrypt/file?file_path=' + id_card_url
+                    }
                     size='small'
                   >
                     Show Files
@@ -110,7 +112,7 @@ function ListDataPage() {
                 </div>
                 <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
                   <ButtonLink
-                    href={api.getUri().split('/')[0] + '/' + cv_url}
+                    href={api.getUri() + '/encrypt/file?file_path=' + cv_url}
                     size='small'
                   >
                     Show Files
@@ -118,7 +120,7 @@ function ListDataPage() {
                 </div>
                 <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
                   <ButtonLink
-                    href={api.getUri().split('/')[0] + '/' + video_url}
+                    href={api.getUri() + '/encrypt/file?file_path=' + video_url}
                     size='small'
                   >
                     Show Files
