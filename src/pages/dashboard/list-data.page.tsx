@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
+import withAuth from '@/components/hoc/withAuth';
 import ButtonLink from '@/components/links/ButtonLink';
 import Typography from '@/components/typography/Typography';
 import DashboardLayout from '@/layouts/DashboardLayout';
@@ -8,7 +9,9 @@ import api from '@/lib/api';
 import { ApiError, ApiReturn } from '@/types/api';
 import { DataResponse } from '@/types/entity/data';
 
-export default function ListDataPage() {
+export default withAuth(ListDataPage, ['all']);
+
+function ListDataPage() {
   const { data } = useQuery<ApiReturn<DataResponse[]>, AxiosError<ApiError>>([
     '/encrypt',
   ]);
