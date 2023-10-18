@@ -59,15 +59,7 @@ export default function withAuth<T>(
         return;
       }
 
-      if (routePermission.includes('all')) return;
-
-      if (user && isAuthenticated) {
-        if (!routePermission.includes(user.peran)) {
-          router.replace('/login');
-          window.sessionStorage.setItem('redirectIsDone', 'true');
-          return;
-        }
-      } else {
+      if (!user || !isAuthenticated) {
         if (!isLoading) {
           router.replace('/login');
           window.sessionStorage.setItem('redirectIsDone', 'true');

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { LuBookOpen, LuListPlus } from 'react-icons/lu';
+import { LuBookOpen, LuListChecks, LuListPlus } from 'react-icons/lu';
 
 import Button from '@/components/buttons/Button';
 import UnstyledLink from '@/components/links/UnstyledLink';
@@ -42,10 +42,15 @@ export default function DashboardLayout({
             <div className='h-px bg-base-inline'></div>
 
             <div className='bg-teal-500 py-1.5 px-6 rounded-md'>
-              <Typography as='p' variant='p' className='text-base-surface'>
-                {user && isAuthenticated
-                  ? user.email
-                  : 'cute_mammal@example.com'}
+              <Typography
+                as='p'
+                variant='p'
+                className={clsxm(
+                  'text-base-surface truncate',
+                  user && isAuthenticated ? user.email : 'text-transparent'
+                )}
+              >
+                {user && isAuthenticated ? user.email : 'Placeholder'}
               </Typography>
             </div>
 
@@ -87,7 +92,7 @@ export default function DashboardLayout({
                     'hover:bg-teal-500 transition-colors'
                   )}
                 >
-                  <LuListPlus className='w-6 h-6' />
+                  <LuListChecks className='w-6 h-6' />
                   List Data
                 </Typography>
               </UnstyledLink>

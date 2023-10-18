@@ -27,7 +27,7 @@ api.interceptors.request.use(function (config) {
         throw 'Api Context not found. You must call `setApiContext(context)` before calling api on server-side';
 
       const cookies = new Cookies(context.req?.headers.cookie);
-      token = cookies.get('@myevent/token');
+      token = cookies.get('@tamiyochi/token');
     } else {
       token = getToken();
     }
