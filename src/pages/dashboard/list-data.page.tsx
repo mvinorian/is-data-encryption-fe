@@ -11,6 +11,8 @@ import { DataResponse } from '@/types/entity/data';
 
 export default withAuth(ListDataPage, ['all']);
 
+// something
+
 function ListDataPage() {
   const { data } = useQuery<ApiReturn<DataResponse[]>, AxiosError<ApiError>>([
     '/encrypt',
