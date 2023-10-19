@@ -106,6 +106,7 @@ function ListDataPage() {
                       api.getUri() + '/encrypt/file?file_path=' + id_card_url
                     }
                     size='small'
+                    target='_blank'
                   >
                     Show Files
                   </ButtonLink>
@@ -114,6 +115,7 @@ function ListDataPage() {
                   <ButtonLink
                     href={api.getUri() + '/encrypt/file?file_path=' + cv_url}
                     size='small'
+                    target='_blank'
                   >
                     Show Files
                   </ButtonLink>
@@ -122,6 +124,7 @@ function ListDataPage() {
                   <ButtonLink
                     href={api.getUri() + '/encrypt/file?file_path=' + video_url}
                     size='small'
+                    target='_blank'
                   >
                     Show Files
                   </ButtonLink>

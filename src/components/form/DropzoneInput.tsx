@@ -78,7 +78,10 @@ export default function DropzoneInput({
         });
       } else {
         const acceptedFilesPreview = acceptedFiles.map((file: T) =>
-          Object.assign(file, { preview: URL.createObjectURL(file) })
+          Object.assign(file, {
+            preview: URL.createObjectURL(file),
+            fileName: file.name,
+          })
         );
 
         setFiles(

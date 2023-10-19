@@ -22,6 +22,7 @@ export default function AddDataForm({
       <form
         onSubmit={handleSubmit(onSubmit)}
         className='p-6 space-y-4 w-1/2 bg-white rounded-lg'
+        encType='multipart/form-data'
       >
         <div className='space-y-3'>
           <Input

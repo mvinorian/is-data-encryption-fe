@@ -26,7 +26,11 @@ function AddDataPage() {
     AxiosError<ApiError>,
     FormData
   >(async (data) => {
-    const res = await api.post('/encrypt', data);
+    const res = await api.post('/encrypt', data, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
     return res;
   });
 
@@ -37,6 +41,9 @@ function AddDataPage() {
       id_card: data.id_card[0],
       cv: data.cv[0],
       video: data.video[0],
+      id_card_filename: data.id_card[0].fileName,
+      cv_filename: data.cv[0].fileName,
+      video_filename: data.video[0].fileName,
     };
 
     const formData = serialize(body, { indices: true });
