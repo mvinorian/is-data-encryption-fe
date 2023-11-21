@@ -1,8 +1,46 @@
+import { useMutation } from '@tanstack/react-query';
+import { AxiosError, AxiosResponse } from 'axios';
+import { useState } from 'react';
+
 import Button from '@/components/buttons/Button';
+import Modal from '@/components/modal/Modal';
 import Typography from '@/components/typography/Typography';
 import DashboardLayout from '@/layouts/DashboardLayout';
+import api from '@/lib/api';
+import { ApiError } from '@/types/api';
 
 export default function Request() {
+  const [email, setEmail] = useState<string>('');
+  const [response, setResponse] = useState<string>('');
+  const [open, setOpen] = useState<boolean>(false);
+  const { mutate } = useMutation<
+    AxiosResponse,
+    AxiosError<ApiError>,
+    { email: string }
+  >(async (data) => {
+    const res = await api.post('/', data, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return res;
+  });
+
+  const requestData = (data: string) => {
+    setEmail(data);
+    // console.log(email);
+    mutate(
+      { email: email }
+      // {
+      //   onSuccess: (response) => {
+      //     setOpen(true);
+      //   },
+      // }
+    );
+    setOpen(true);
+    setResponse('Things');
+  };
+
   return (
     <DashboardLayout>
       <div>
@@ -35,27 +73,43 @@ export default function Request() {
             >
               {user.name}
             </Typography>
-            <Button size='base' variant='warning'>
+            <Button
+              size='base'
+              variant='warning'
+              onClick={() => requestData(user.email)}
+            >
               Request resource
             </Button>
           </div>
         ))}
       </div>
+      <Modal
+        open={open}
+        setOpen={setOpen}
+        modalContainerClassName='your-custom-class'
+      >
+        {/* Modal Content */}
+        <Modal.Title>Request response</Modal.Title>
+        <Modal.Body>
+          {/* Your modalwd body content */}
+          <p>{response}</p>
+        </Modal.Body>
+      </Modal>
     </DashboardLayout>
   );
 }
 
 const dummy = [
-  { name: 'Alissa' },
-  { name: 'Danny' },
-  { name: 'Alissa' },
-  { name: 'Danny' },
-  { name: 'Alissa' },
-  { name: 'Danny' },
-  { name: 'Alissa' },
-  { name: 'Danny' },
-  { name: 'Alissa' },
-  { name: 'Danny' },
-  { name: 'Alissa' },
-  { name: 'Danny' },
+  { name: 'Alissa', email: 'aaaa@gmail.com' },
+  { name: 'Danny', email: 'aaaa@gmail.com' },
+  { name: 'Alissa', email: 'aaaa@gmail.com' },
+  { name: 'Danny', email: 'aaaa@gmail.com' },
+  { name: 'Alissa', email: 'aaaa@gmail.com' },
+  { name: 'Danny', email: 'aaaa@gmail.com' },
+  { name: 'Alissa', email: 'aaaa@gmail.com' },
+  { name: 'Danny', email: 'aaaa@gmail.com' },
+  { name: 'Alissa', email: 'aaaa@gmail.com' },
+  { name: 'Danny', email: 'aaaa@gmail.com' },
+  { name: 'Alissa', email: 'aaaa@gmail.com' },
+  { name: 'Danny', email: 'aaaa@gmail.com' },
 ];
