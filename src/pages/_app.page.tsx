@@ -1,4 +1,5 @@
 import '@/styles/globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 import '@/styles/nprogress.css';
 
 import {
@@ -10,8 +11,8 @@ import type { AppProps } from 'next/app';
 import Router from 'next/router';
 import { DefaultSeo } from 'next-seo';
 import nProgress from 'nprogress';
+import { ToastContainer } from 'react-toastify';
 
-import Toast from '@/components/Toast';
 import api from '@/lib/api';
 import clsxm from '@/lib/clsxm';
 import { montserrat, openSans } from '@/lib/font';
@@ -36,8 +37,8 @@ const queryClient = new QueryClient({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Toast />
       <DefaultSeo {...SEO} />
+      <ToastContainer />
       <div className={clsxm(montserrat.variable, openSans.variable)}>
         <Component {...pageProps} />
       </div>

@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import * as React from 'react';
-import { LuBookOpen, LuListChecks, LuListPlus } from 'react-icons/lu';
+import { LuBookOpen, LuListChecks, LuListPlus, LuUser } from 'react-icons/lu';
 
 import Button from '@/components/buttons/Button';
 import UnstyledLink from '@/components/links/UnstyledLink';
@@ -19,7 +19,7 @@ export default function DashboardLayout({
   const router = useRouter();
 
   const handleLogout = () => {
-    user && isAuthenticated && logout();
+    logout();
     router.replace('/login');
   };
 
@@ -94,6 +94,24 @@ export default function DashboardLayout({
                 >
                   <LuListChecks className='w-6 h-6' />
                   List Data
+                </Typography>
+              </UnstyledLink>
+
+              <UnstyledLink
+                href={
+                  router.asPath.includes('request') ? '' : '/dashboard/request'
+                }
+                className='block'
+              >
+                <Typography
+                  className={clsxm(
+                    router.asPath.includes('request') && 'bg-teal-500',
+                    'px-3 py-1.5 rounded-md text-base-surface font-medium flex gap-3 items-center',
+                    'hover:bg-teal-500 transition-colors'
+                  )}
+                >
+                  <LuUser className='w-6 h-6' />
+                  Request Data
                 </Typography>
               </UnstyledLink>
             </div>

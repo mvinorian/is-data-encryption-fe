@@ -89,7 +89,7 @@ function ListDataPage() {
             ) => (
               <div
                 key={index}
-                className='w-full border text-teal-600 grid grid-cols-11 px-2 last:rounded-b-md'
+                className='w-full border bg-base-surface text-teal-600 grid grid-cols-11 px-2 last:rounded-b-md'
               >
                 <div className='col-span-1 py-4 px-2 flex justify-center items-center'>
                   <Typography variant='p'>{index + 1}</Typography>

@@ -19,7 +19,6 @@ export default function withAuth<T>(
 ) {
   const ComponentWithAuth = (props: Omit<T, keyof WithAuthProps>) => {
     const router = useRouter();
-    const { authed } = router.query;
 
     const isAuthenticated = useAuthStore.useIsAuthenticated();
     const isLoading = useAuthStore.useIsLoading();
@@ -28,7 +27,7 @@ export default function withAuth<T>(
     const stopLoading = useAuthStore.useStopLoading();
     const user = useAuthStore.useUser();
 
-    const checkAuth = React.useCallback(() => {
+    const checkAuth = React.useCallback(async () => {
       const token = getToken();
 
       if (!token) {
@@ -37,21 +36,21 @@ export default function withAuth<T>(
         return;
       }
 
-      const loadUser = async () => {
-        try {
-          const res = await api.get<ApiReturn<User>>('/user/me');
+      if (isAuthenticated) {
+        stopLoading();
+        return;
+      }
 
-          login({ ...res.data.data, token });
-        } catch (err) {
-          removeToken();
-        } finally {
-          stopLoading();
-        }
-      };
+      try {
+        const res = await api.get<ApiReturn<User>>('/user/me');
 
-      if (!isAuthenticated || authed) loadUser();
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isAuthenticated]);
+        login({ ...res.data.data, token });
+      } catch (err) {
+        removeToken();
+      } finally {
+        stopLoading();
+      }
+    }, [isAuthenticated, login, logout, stopLoading]);
 
     React.useEffect(() => {
       if (window.sessionStorage.getItem('redirectIsDone')) {

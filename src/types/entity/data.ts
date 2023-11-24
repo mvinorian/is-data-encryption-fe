@@ -17,3 +17,11 @@ export type DataResponse = {
   encrypt_method: 'AES' | 'RC4' | 'DES';
   encrypt_time: string;
 };
+
+export type SharedDataResponse = {
+  name: string;
+  phone_number: string;
+  id_card: string;
+  cv: string;
+  video: string;
+};

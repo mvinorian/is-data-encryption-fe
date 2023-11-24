@@ -20,6 +20,7 @@ const ButtonLink = React.forwardRef<HTMLAnchorElement, ButtonLinkProps>(
         target={target}
         openNewTab={openNewTab}
         nextLinkProps={nextLinkProps}
+        className='block'
       >
         <Button {...rest}>{children}</Button>
       </UnstyledLink>

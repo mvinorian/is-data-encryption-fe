@@ -17,7 +17,6 @@ import { Data, DataResponse } from '@/types/entity/data';
 export default withAuth(AddDataPage, ['all']);
 
 function AddDataPage() {
-  // eslint-disable-next-line unused-imports/no-unused-vars
   const [page, setPage] = React.useState<number>(1);
   const [response, setResponse] = React.useState<DataResponse[]>([]);
 
