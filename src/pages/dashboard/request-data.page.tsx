@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 
 import Button from '@/components/buttons/Button';
 import Input from '@/components/form/Input';
+import withAuth from '@/components/hoc/withAuth';
 import ButtonLink from '@/components/links/ButtonLink';
 import Modal from '@/components/modal/Modal';
 import Typography from '@/components/typography/Typography';
@@ -16,7 +17,9 @@ import { ApiError, ApiReturn } from '@/types/api';
 import { SharedDataResponse } from '@/types/entity/data';
 import { User } from '@/types/entity/user';
 
-export default function Request() {
+export default withAuth(RequestDataPage, ['all']);
+
+function RequestDataPage() {
   const user = useAuthStore().user;
 
   const [openData, setOpenData] = React.useState(false);
@@ -34,7 +37,7 @@ export default function Request() {
     },
     {
       onSuccess: () => {
-        toast.success(`Request data success`);
+        toast.success('Request data success');
       },
       onError: (err) => {
         toast.error(err.response?.data.errors);

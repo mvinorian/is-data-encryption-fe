@@ -99,19 +99,41 @@ export default function DashboardLayout({
 
               <UnstyledLink
                 href={
-                  router.asPath.includes('request') ? '' : '/dashboard/request'
+                  router.asPath.includes('request-data')
+                    ? ''
+                    : '/dashboard/request-data'
                 }
                 className='block'
               >
                 <Typography
                   className={clsxm(
-                    router.asPath.includes('request') && 'bg-teal-500',
+                    router.asPath.includes('request-data') && 'bg-teal-500',
                     'px-3 py-1.5 rounded-md text-base-surface font-medium flex gap-3 items-center',
                     'hover:bg-teal-500 transition-colors'
                   )}
                 >
                   <LuUser className='w-6 h-6' />
                   Request Data
+                </Typography>
+              </UnstyledLink>
+
+              <UnstyledLink
+                href={
+                  router.asPath.includes('requesting-user')
+                    ? ''
+                    : '/dashboard/requesting-user'
+                }
+                className='block'
+              >
+                <Typography
+                  className={clsxm(
+                    router.asPath.includes('requesting-user') && 'bg-teal-500',
+                    'px-3 py-1.5 rounded-md text-base-surface font-medium flex gap-3 items-center',
+                    'hover:bg-teal-500 transition-colors'
+                  )}
+                >
+                  <LuUser className='w-6 h-6' />
+                  Requesting User
                 </Typography>
               </UnstyledLink>
             </div>
