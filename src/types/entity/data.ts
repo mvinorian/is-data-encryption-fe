@@ -8,6 +8,16 @@ export type Data = {
   video: FileWithPreview[];
 };
 
+export type Files = {
+  files: FileWithPreview[];
+};
+
+export type FilesResponse = {
+  dateTime: string;
+  name: string;
+  email: string;
+};
+
 export type DataResponse = {
   name: string;
   phone_number: string;

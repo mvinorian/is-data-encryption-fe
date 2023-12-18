@@ -136,6 +136,26 @@ export default function DashboardLayout({
                   Requesting User
                 </Typography>
               </UnstyledLink>
+              <UnstyledLink
+                href={
+                  router.asPath.includes('verify-digital-signature')
+                    ? ''
+                    : '/dashboard/verify-digital-signature'
+                }
+                className='block'
+              >
+                <Typography
+                  className={clsxm(
+                    router.asPath.includes('verify-digital-signature') &&
+                      'bg-teal-500',
+                    'px-3 py-1.5 rounded-md text-base-surface font-medium flex gap-3 items-center',
+                    'hover:bg-teal-500 transition-colors'
+                  )}
+                >
+                  <LuUser className='w-6 h-6' />
+                  Verify Digital Signature
+                </Typography>
+              </UnstyledLink>
             </div>
           </div>
 
